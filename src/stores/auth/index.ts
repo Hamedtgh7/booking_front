@@ -9,8 +9,13 @@ interface RegisterData {
     role:string
 }
 
+interface LoginData {
+    email:string,
+    password:string
+}
+
 export const useAuthStore=defineStore('auth',()=>{
-    const emptyForm=()=>{
+    const emptyRegisterForm=()=>{
         return {
             name:'',
             email:'',
@@ -19,20 +24,76 @@ export const useAuthStore=defineStore('auth',()=>{
         }
     }
 
-    const registerForm=ref<RegisterData>(emptyForm())
+    const emptyLoginForm=()=>{
+        return {
+            email:'',
+            password:''
+        }
+    }
+
+    const registerForm=ref<RegisterData>(emptyRegisterForm())
+    const loginForm=ref<LoginData>(emptyLoginForm())
+    const token=ref<string |null>(localStorage.getItem('token'))
+    const role=ref<string|null>(localStorage.getItem('role'))
+    const name=ref<string|null>(localStorage.getItem('name'))
 
     async function register(payload:RegisterData) {
        return await authService.register(payload).then(response=>{
-        registerForm.value=emptyForm()
+        registerForm.value=emptyRegisterForm()
         return response
        }).catch(error=>{
-        console.error('Error',error)
+        console.error('Error',error.response.data)
         return error
        })
     }
 
+    async function login(payload:LoginData){
+        return await authService.login(payload).then(response=>{
+            loginForm.value=emptyLoginForm()
+            token.value=response.data.token
+            role.value=response.data.role
+            name.value=response.data.name
+
+            if (name.value){
+                localStorage.setItem('name',name.value)
+            }
+
+            if (token.value){   
+                localStorage.setItem('token',token.value)
+            }
+
+            if (role.value){
+                localStorage.setItem('role',role.value)
+            }
+
+            return response
+        }).catch(error=>{
+            console.error('Error',error.response.data)
+            return error
+        })
+    }
+
+    async function logout(){
+        return await authService.logout().then(response=>{
+            localStorage.removeItem('token')
+            localStorage.removeItem('role')
+            localStorage.removeItem('name')
+            token.value=null
+            role.value=null
+            name.value=null
+            return response
+        }).catch(error=>{
+            console.error('Error',error.response.data)
+            return error
+        })
+    }
+
     return {
         registerForm,
-        register
+        loginForm,
+        role,
+        register,
+        login,
+        logout
     }
 })

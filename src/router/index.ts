@@ -1,13 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import registerRoute from './auth/registerRoute'
+import authRoute from './auth/authRoute'
+import dashboardRoute from './dahsboard/dashboardRoute'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      ...registerRoute
-    },
-  ],
+      ...authRoute,
+      ...dashboardRoute,
+    ],
+})
+
+router.beforeEach((to,from,next)=>{
+  const token=localStorage.getItem('token')
+
+  if(token && (to.name==='login'|| to.name==='register')){
+    next({'name':'dashboard'})
+  }
+  else if (to.meta.requiresAuth && !token){
+    next({'name':'login'})
+  }else{
+    next()
+  }
 })
 
 export default router

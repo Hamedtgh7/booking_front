@@ -18,6 +18,11 @@
           </v-btn>
         </v-form>
 
+        <p class="text-center mt-3">
+          Alradey have account?
+          <router-link :to="{name:'login'}" class="font-weight-bold text-primary">Login</router-link>
+        </p>
+
       </v-card-text>
 
     </v-card>
@@ -26,12 +31,15 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/auth/index';
+import { useRouter } from 'vue-router'; 
 
 const userStore=useAuthStore()
 const{registerForm,register} =userStore
+const router=useRouter()
 
 const handleRegister=async ()=>{
   await register(registerForm)
+  router.push({name:'login'})
 }
  
 </script>

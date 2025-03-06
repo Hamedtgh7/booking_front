@@ -8,5 +8,9 @@ export const authService={
 
     async login(data:{email:string; password:string}){
         return await api.post("/login",data)
+    },
+
+    async logout(){
+        return await api.post('/logout')
     }
 }
