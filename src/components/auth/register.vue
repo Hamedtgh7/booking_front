@@ -12,7 +12,6 @@
           <v-text-field v-model="registerForm.name" label="name" variant="outlined" required />
           <v-text-field v-model="registerForm.email" label="email" variant="outlined" required type="email" />
           <v-text-field v-model="registerForm.password" label="password" variant="outlined" required type="password" />
-          <v-select v-model="registerForm.role" label="role" :items="['client','admin']" variant="outlined" required />
           <v-btn color="primary" class="mt-4 w-50 mx-auto d-block" type="submit">
             register
           </v-btn>

@@ -1,7 +1,7 @@
 import Appointment from "@/components/appointment/appointment.vue";
 import Admins from "@/components/client/Admins.vue";
 import Schedule from "@/components/client/Schedule.vue";
-import Dashboard from "@/components/dahsboard/Dashboard.vue";
+import Dashboard from "@/components/dashboard/Dashboard.vue";
 import Notification from "@/components/notification/notification.vue";
 import Slots from "@/components/slot/slots.vue";
 import { useAuthStore } from "@/stores/auth";

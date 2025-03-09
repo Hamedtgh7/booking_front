@@ -2,7 +2,7 @@
     <v-app>
         <Sidebar :role="role" />
 
-        <v-main>
+        <v-main style="padding-left: 150px;">
             <router-view />
         </v-main>
     </v-app>

@@ -1,46 +1,53 @@
 <template>
-    <v-container>
+  <v-container class="d-flex justify-center align-center" style="min-height:100vh;width: 100vw;">
 
-        <v-row class="justify-center align-center">
-            <v-btn icon @click="prevMonth">
-                <v-icon>mdi-chevron-left</v-icon>
-            </v-btn>
-       
+        
 
-            <h2 class="mx-4">{{ currentYear }}- {{ monthNames[currentMonth] }}</h2>
+        <v-row class="mt-4" no-gutters>  
 
-            <v-btn icon @click="nextMonth">
-                <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
-        </v-row>
+            <v-container>
+                <v-row class="justify-center align-center" no-gutters>
+                    <v-btn icon @click="prevMonth" class="mx-2" rounded v-if="isPreviewMode">
+                        <v-icon>mdi-chevron-left</v-icon>
+                    </v-btn>
+            
 
-        <v-row class="mt-4">
-            <v-col v-for="day in daysofMonth" :key="day" cols="3">
-                <v-btn @click="openSchedulesDialog(day)" block>
-                    {{ formatDate(day) }}
-                </v-btn>
+                    <h2 class="mx-4">{{ currentYear }}- {{ monthNames[currentMonth] }}</h2>
+
+                    <v-btn icon @click="nextMonth" class="mx-2" rounded>
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-btn>
+                </v-row>
+            </v-container>
+
+            <v-col v-for="day in daysofMonth" :key="day" cols="3" class="mb-4">
+                <v-card @click="openSchedulesDialog(day)" class="elevation-2 rounded-lg hoverable" > 
+                    <v-card-title class="d-flex justify-center align-center">
+                        {{ formatDate(day) }}
+                    </v-card-title>
+                </v-card>
             </v-col>
         </v-row>
 
         <v-dialog v-model="openDialog" max-width="600px">
             <v-card>
-                <v-card-title>
-                    {{ clientStore.selectedDate }}
+                <v-card-title class="d-flex justify-between align-center">
+                    <span>{{ clientStore.selectedDate }}</span>
                 </v-card-title>
 
                 <v-card-text>
                     <v-row>
-                        <v-col v-for="schedule in clientStore.schedules" :key="schedule.id" cols="6">
+                        <v-col v-for="schedule in clientStore.schedules" :key="schedule.id" cols="6" class="mb-3">
                             <v-btn :color="selectedSchedule?.id===schedule.id ? 'primary' : 'default'"
-                            @click="toggleSchedule(schedule)" block>
-                                {{ schedule.slot.start }}-{{ schedule.slot.end }}
+                            @click="toggleSchedule(schedule)" block class="text-capitalize">
+                                {{ schedule.slot.startTime }}-{{ schedule.slot.endTime }}
                             </v-btn>
                         </v-col>
                     </v-row>
                 </v-card-text>
 
                 <v-card-actions>
-                    <v-btn color="primary" @click="confirm(selectedSchedule.id)">
+                    <v-btn color="primary" @click="confirm(selectedSchedule?.id)">
                         Confirm
                     </v-btn>
 
@@ -120,5 +127,10 @@ async function confirm(scheduleId){
     await appointmentStore.createAppointment(scheduleId)
     openDialog.value=false
 }
+const isPreviewMode=computed(()=>{
+    const current=new Date()
 
+    const prevMonthDate=new Date(currentYear.value,currentMonth.value)
+    return prevMonthDate>current
+})
 </script>

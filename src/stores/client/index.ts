@@ -10,7 +10,7 @@ export const useClientStore=defineStore('client',()=>{
 
     async function fetchAdmins(){
         return await scheduleClientService.getAdmins().then(response=>{
-            admins.value=response.data
+            admins.value=response.data.data.data
         }).catch(error=>{
             console.log('Error',error.response.data)
             return error

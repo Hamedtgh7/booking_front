@@ -5,6 +5,13 @@ import dashboardRoute from './dahsboard/dashboardRoute'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path:'/',
+      redirect:(to)=>{
+        const token=localStorage.getItem('token')
+        return token ? {'name':'dashboard'} :{'name':'login'}
+      }
+    },
       ...authRoute,
       ...dashboardRoute,
     ],

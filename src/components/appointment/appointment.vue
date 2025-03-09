@@ -1,49 +1,53 @@
 <template>
-    <v-container>
+  <v-container class="d-flex justify-center align-center mt-4" style="width: 100vw;">
 
-        <v-card class="pa-4">
-            <v-card-title class="text-h5 font-weight-bold">
+        <v-card class="pa-4 rounded-lg" style="max-height: 700px;overflow-y: auto; width: 100%;">
+            <v-card-title class="text-h5 font-weight-bold d-flex align-center">
+                <v-icon icon="mdi-calendar-check" class="mr-2" color="primary"></v-icon>
                 List of Appointments
             </v-card-title>
 
             <v-divider class="my-3" />
 
-            <v-row dense>
+            <v-row v-if="appointmentStore.appointments.length!==0" dense>
                 <v-col v-for="appointment in appointmentStore.appointments" :key="appointment.id"
-                    cols="12">
-                    <v-card class="pa-3" elevation="3">
+                    cols="12" md="4">
+                    <v-card class="pa-4 rounded-lg elevation-3" hover>
 
-                        <v-card-title>
+                        <v-card-title class="d-flex align-center">
                             <v-icon  class="mr-1" icon="mdi-account-tie" />
-                            {{ appointment.name }}
+                            <span class="text-subtitle-1 font-weight-bold">{{ appointment.name }}</span>
                         </v-card-title>
 
                         <v-card-text>
-                            <v-chip :color="statusColor[appointment.status]" class="mb-2">
-                                {{ appointment.status }}
-                            </v-chip>
+                            <v-divider class="my-2" />
 
-                            <p>
+                            <div class="d-flex align-center mb-2">
+                                <v-chip :color="statusColor[appointment.status]" class="text-uppercase font-weight-bold">
+                                    {{ appointment.status }}
+                                </v-chip>
+                            </div>
+
+                            <div class="text-body-2 d-flex align-center mb-1">
                                 <v-icon class="mr-1" icon="mdi-calendar" />
                                 {{ format(new Date(appointment.date),"yyyy/MM/dd") }}
-                            </p>
+                            </div>
 
-                            <p class="m-0" style="font-size: 14px;" color="#555">
+                            <div class="text-body-2 d-flex align-center">
                                 <v-icon class="mr-1" icon="mdi-clock-time-four-outline" />
-                                {{ appointment.start }}-{{ appointment.end }}
-                            </p>
+                                <span class="font-weight-medium">{{ appointment.start }}-{{ appointment.end }}</span>
+                            </div>
 
-                            <v-select v-if="isAdmin" v-model="appointment.status" :items="statusOptions"
+                            <v-select v-model="appointment.status" :items="statusOptions" variant="outlined" density="compact"
                                     label="Change status" @update:model-value="(newStatus)=>updateStatus(appointment.id,newStatus)"
-                                    class="mt-2"/>
+                                    class="mt-3"/>
                         </v-card-text>
-
                     </v-card>
                 </v-col>
             </v-row>
 
-            <v-alert v-if="appointmentStore.appointments.length===0" type="info" class="mt-3">
-                No Appointments sets.
+            <v-alert v-else type="info" class="mt-3">
+                No Appointments set.
             </v-alert>
         </v-card>
     </v-container>
@@ -68,9 +72,9 @@ onMounted(()=>{
     isAdmin.value=localStorage.getItem('role')==='admin'
 })
 
-const statusOptions=[
-    'pending','confirmed','canceled'
-]
+const statusOptions= isAdmin.value
+    ? ['pending','confirmed','canceled']
+    : ['pending','canceled']
 
 const updateStatus =async(id,status)=>{
     await appointmentStore.changeStatus(id,status)

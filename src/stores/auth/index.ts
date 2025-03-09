@@ -50,9 +50,10 @@ export const useAuthStore=defineStore('auth',()=>{
     async function login(payload:LoginData){
         return await authService.login(payload).then(response=>{
             loginForm.value=emptyLoginForm()
-            token.value=response.data.token
-            role.value=response.data.role
-            name.value=response.data.name
+
+            token.value=response.data.data.token
+            role.value=response.data.data.role
+            name.value=response.data.data.name
 
             if (name.value){
                 localStorage.setItem('name',name.value)
@@ -68,7 +69,7 @@ export const useAuthStore=defineStore('auth',()=>{
 
             return response
         }).catch(error=>{
-            console.error('Error',error.response.data)
+            console.log('Error',error.response.data)
             return error
         })
     }
