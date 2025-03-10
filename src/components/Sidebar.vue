@@ -5,9 +5,9 @@
         <v-row class="pa-4 align-center">
             <v-col class="d-flex align-center">
                 <div>
-                <div class="font-weight-bold">Welcome {{ name }}</div>
-                <div class="text-body-2">Role: {{ role }}</div>
-            </div>
+                    <div>Welcome {{ name }}</div>
+                    <div class="text-body-2">Role: {{ role }}</div>
+                </div>
             </v-col>
 
             <v-col class="text-right">
@@ -56,6 +56,7 @@ const sidebarItems=computed(()=>{
         [
             {'title':"Add meeting time",route:{'name':'slots'},icon:'mdi-calendar-plus'},
             {'title':'Appointments',route:{'name':'appointment'},icon:'mdi-calendar-check'},
+            {'title':'Notifications',route:{'name':'notification'},icon:'mdi-bell'}
         ] :
         [
             {'title':'Schedules',route:{'name':'admins'},icon:'mdi-calendar-clock'},

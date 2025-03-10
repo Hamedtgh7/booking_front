@@ -55,7 +55,7 @@
 
 <script setup>
 import { useApoointmentStore } from '@/stores/appointment';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { format } from 'date-fns';
 
 const appointmentStore=useApoointmentStore()
@@ -72,9 +72,10 @@ onMounted(()=>{
     isAdmin.value=localStorage.getItem('role')==='admin'
 })
 
-const statusOptions= isAdmin.value
+const statusOptions= computed(()=>isAdmin.value
     ? ['pending','confirmed','canceled']
     : ['pending','canceled']
+)
 
 const updateStatus =async(id,status)=>{
     await appointmentStore.changeStatus(id,status)

@@ -10,7 +10,7 @@
             <v-divider />
         </v-col>
         
-        <v-col v-for="admin in clientStore.admins" :key="admin.id" cols="12" class="mb-4" >
+        <v-col v-for="admin in clientStore.admins" :key="admin.id" cols="12" md="4" class="mb-4" >
             <v-card class="rounded-lg elevation-2" hover @click="handleAdminClick(admin.id)">
 
                 <v-card-title class="d-flex align-center justify-space-between">
