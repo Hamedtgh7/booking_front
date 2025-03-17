@@ -1,6 +1,6 @@
 <template>
-  <v-container class="d-flex justify-center align-center mt-4" style="width: 100vw;">
-    <v-card elevation="3">
+  <v-container class="d-flex align-center mt-4" style="width: 100vw;">
+    <v-card elevation="3" width="100%" class="mr-4">
             <v-card-title class="d-flex justify-space-between align-center px-4">
                 <span class="text-h6 font-weight-bold">Notifications</span>
                 <v-btn icon @click="notificationStore.getNotifications()" variant="text">
@@ -79,7 +79,7 @@
     </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useNotificationStore } from '@/stores/notification';
 import { onMounted, ref } from 'vue';
 
@@ -97,7 +97,7 @@ const openDialog=(notification)=>{
     dialog.value=true
 
     if(!notification.read_at){
-        notification.markAsRead(notification.id)
+        notificationStore.markAsRead(notification.id)
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     
-    <v-navigation-drawer app width="300" elevation="4" style="position: fixed; left: 0;border-right: 1px solid #E0E0E0;">
+    <v-navigation-drawer width="300" elevation="4" style="position: fixed; left: 0;border-right: 1px solid #E0E0E0;">
 
         <v-row class="pa-4 align-center">
             <v-col class="d-flex align-center">
@@ -31,7 +31,7 @@
     </v-navigation-drawer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import router from '@/router';
 import { computed, ref, watchEffect } from 'vue';
 import { useAuthStore } from '@/stores/auth';
@@ -54,9 +54,10 @@ watchEffect(()=>{
 const sidebarItems=computed(()=>{
     return props.role ==='admin' ?
         [
-            {'title':"Add meeting time",route:{'name':'slots'},icon:'mdi-calendar-plus'},
+            {'title':"meeting times",route:{'name':'slots'},icon:'mdi-calendar-plus'},
             {'title':'Appointments',route:{'name':'appointment'},icon:'mdi-calendar-check'},
-            {'title':'Notifications',route:{'name':'notification'},icon:'mdi-bell'}
+            {'title':'Notifications',route:{'name':'notification'},icon:'mdi-bell'},
+            {'title':'Analytics',route:{'name':'analytic'},icon:'mdi-chart-bar'}
         ] :
         [
             {'title':'Schedules',route:{'name':'admins'},icon:'mdi-calendar-clock'},

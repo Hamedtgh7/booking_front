@@ -79,7 +79,7 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { format } from 'date-fns'
 import { computed, ref } from 'vue'
 import { useScheduleStore } from '@/stores/schedule'

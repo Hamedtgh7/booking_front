@@ -60,7 +60,7 @@
     </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useClientStore } from '@/stores/client';
 import { useRoute } from 'vue-router';

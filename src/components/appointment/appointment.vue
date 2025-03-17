@@ -40,7 +40,7 @@
 
                             <v-select v-model="appointment.status" :items="statusOptions" variant="outlined" density="compact"
                                     label="Change status" @update:model-value="(newStatus)=>updateStatus(appointment.id,newStatus)"
-                                    class="mt-3"/>
+                                    class="mt-3" :disabled="appointment.status === 'canceled' || (!isAdmin && appointment.status === 'confirmed')"/>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -53,7 +53,7 @@
     </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useApoointmentStore } from '@/stores/appointment';
 import { computed, onMounted, ref } from 'vue';
 import { format } from 'date-fns';

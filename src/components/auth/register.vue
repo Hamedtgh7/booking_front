@@ -28,7 +28,7 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from '@/stores/auth/index';
 import { useRouter } from 'vue-router'; 
 

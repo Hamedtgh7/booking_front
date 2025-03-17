@@ -1,3 +1,4 @@
+import BaseAnanlyticView from "@/components/analytic/baseAnanlyticView.vue";
 import Appointment from "@/components/appointment/appointment.vue";
 import Admins from "@/components/client/Admins.vue";
 import Schedule from "@/components/client/Schedule.vue";
@@ -29,13 +30,13 @@ const dashboardRoute=[
                 beforeEnter:authGuard('admin')
             },
             {
-                path:'/admins',
+                path:'/users/get-admins-list',
                 name:'admins',
                 component:Admins,
                 beforeEnter:authGuard('client')
             },
             {
-                path:'/admins/:adminId',
+                path:'/users/get-admins-list/:adminId/schedule',
                 name:'schedule',
                 component:Schedule,
                 beforeEnter:authGuard('client')
@@ -49,6 +50,11 @@ const dashboardRoute=[
                 path:'/notifications',
                 name:'notification',
                 component:Notification
+            },
+            {
+                path:'/analytic',
+                name:'analytic',
+                component:BaseAnanlyticView
             }
         ]
     }

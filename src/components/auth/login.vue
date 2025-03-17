@@ -26,7 +26,7 @@
   </v-container>
 </template>
   
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from '@/stores/auth/index';
 import router from '@/router';
   

@@ -1,12 +1,6 @@
 <template>
-    <v-app>
         <Sidebar :role="role" />
-
-        <v-main style="padding-left: 150px;">
-            <router-view />
-        </v-main>
-    </v-app>
-
+        <router-view />
 </template>
 
 <script setup>

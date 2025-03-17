@@ -9,7 +9,7 @@ export const useClientStore=defineStore('client',()=>{
     const schedules=ref([])
 
     async function fetchAdmins(){
-        return await scheduleClientService.getAdmins().then(response=>{
+        return await scheduleClientService.getUsers().then(response=>{
             admins.value=response.data.data.data
         }).catch(error=>{
             console.log('Error',error.response.data)
@@ -18,7 +18,7 @@ export const useClientStore=defineStore('client',()=>{
     }
 
     async function getAdminSchedules(adminId:number,date:string){
-        return await scheduleClientService.getAdminSchedules(adminId,date).then(response=>{
+        return await scheduleClientService.getUserSchedules(adminId,date).then(response=>{
             schedules.value=response.data.data
         }).catch(error=>{
             console.log('Error',error.response.data)

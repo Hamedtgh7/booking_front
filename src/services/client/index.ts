@@ -1,11 +1,11 @@
 import api from "@/plugins/api";
 
 export const scheduleClientService={
-    async getAdmins(){
-        return await api.get('/admins')
+    async getUsers(){
+        return await api.get('/users/get-admins-list')
     },
 
-    async getAdminSchedules(adminId:number,date:string){
-        return await api.get(`/admins/${adminId}?date=${date}`)
+    async getUserSchedules(adminId:number,date:string){
+        return await api.get(`/users/get-admins-list/${adminId}/schedule?date=${date}`)
     }
 }
