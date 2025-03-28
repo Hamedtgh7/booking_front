@@ -1,6 +1,6 @@
 <template>
     
-    <v-navigation-drawer width="300" elevation="4" style="position: fixed; left: 0;border-right: 1px solid #E0E0E0;">
+    <v-navigation-drawer permanent width="300" elevation="4" style="position: fixed; left: 0;border-right: 1px solid #E0E0E0;">
 
         <v-row class="pa-4 align-center">
             <v-col class="d-flex align-center">

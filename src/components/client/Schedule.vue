@@ -1,8 +1,6 @@
 <template>
   <v-container class="d-flex justify-center align-center" style="min-height:100vh;width: 100vw;">
 
-        
-
         <v-row class="mt-4" no-gutters>  
 
             <v-container>
@@ -66,6 +64,7 @@ import { useClientStore } from '@/stores/client';
 import { useRoute } from 'vue-router';
 import { format } from 'date-fns';
 import { useApoointmentStore } from '@/stores/appointment';
+import echo from '@/echo.js'
 
 const route=useRoute()
 const clientStore=useClientStore()
@@ -113,6 +112,11 @@ async function openSchedulesDialog(date){
     clientStore.selectedDate=date
     await clientStore.getAdminSchedules(adminId.value,date)
     openDialog.value=true
+
+    echo.private(`appointments.admin.${adminId.value}`).listen('.appointment.update',async(event)=>{
+        console.log(event)
+        await clientStore.getAdminSchedules(adminId.value,date)
+    })
 }
 
 function toggleSchedule(schedule){

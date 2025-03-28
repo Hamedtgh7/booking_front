@@ -22,6 +22,7 @@ const dashboardRoute=[
         path:'/dashboard',
         name:'dashboard',
         component:Dashboard,
+        meta:{requiresAuth:true},
         children:[
             {
                 path:'/slots',

@@ -19,7 +19,7 @@ export const useClientStore=defineStore('client',()=>{
 
     async function getAdminSchedules(adminId:number,date:string){
         return await scheduleClientService.getUserSchedules(adminId,date).then(response=>{
-            schedules.value=response.data.data
+            schedules.value=[...response.data.data]
         }).catch(error=>{
             console.log('Error',error.response.data)
             return error

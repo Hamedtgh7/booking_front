@@ -73,7 +73,7 @@ export const useAnalyticStore=defineStore('analytic',()=>{
         return await analyticService.getInactiveUsers(page).then(response=>{
             inactiveUsers.value=response.data.data.data
             totalInactiveUsersPages.value=response.data.meta.last_page
-            currentInactiveUsersPages.value=response.data.meta.currnet_page
+            currentInactiveUsersPages.value=response.data.meta.current_page
         }).catch(error=>{
             console.log('Error',error)
             return error
@@ -83,8 +83,8 @@ export const useAnalyticStore=defineStore('analytic',()=>{
     async function getUserActivity(page=1){
         return await analyticService.userActivity(page).then(response=>{
             activities.value=response.data.data.data
-            totalActivitiesPages.value=response.data.meta.last_page
-            totalActivitiesPages.value=response.data.meta.currnet_page
+            totalActivitiesPages.value=response.data.data.meta.last_page
+            currentActivitiesPage.value = response.data.data.meta.current_page;
         }).catch(error=>{
             console.log('Error',error)
             return error
