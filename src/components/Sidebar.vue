@@ -57,7 +57,8 @@ const sidebarItems=computed(()=>{
             {'title':"meeting times",route:{'name':'slots'},icon:'mdi-calendar-plus'},
             {'title':'Appointments',route:{'name':'appointment'},icon:'mdi-calendar-check'},
             {'title':'Notifications',route:{'name':'notification'},icon:'mdi-bell'},
-            {'title':'Analytics',route:{'name':'analytic'},icon:'mdi-chart-bar'}
+            {'title':'Analytics',route:{'name':'analytic'},icon:'mdi-chart-bar'},
+            {'title':'Online Users',route:{'name':'onlines'},icon:'mdi-account-multiple'}
         ] :
         [
             {'title':'Schedules',route:{'name':'admins'},icon:'mdi-calendar-clock'},

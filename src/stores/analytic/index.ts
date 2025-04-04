@@ -72,8 +72,8 @@ export const useAnalyticStore=defineStore('analytic',()=>{
     async function getInactiveUsers(page=1){
         return await analyticService.getInactiveUsers(page).then(response=>{
             inactiveUsers.value=response.data.data.data
-            totalInactiveUsersPages.value=response.data.meta.last_page
-            currentInactiveUsersPages.value=response.data.meta.current_page
+            totalInactiveUsersPages.value=response.data.data.last_page
+            currentInactiveUsersPages.value=response.data.data.current_page
         }).catch(error=>{
             console.log('Error',error)
             return error

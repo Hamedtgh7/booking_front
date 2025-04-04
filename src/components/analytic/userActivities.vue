@@ -8,8 +8,8 @@
         <v-container>
             <v-responsive>
                 <v-data-table style="height: 100%;width: 100%;padding-bottom: 20px;" :items="analyticStore.activities" :headers="headers" density="comfortable"
-                                class="elevation-2 my-4 px-4"  v-model="analyticStore.currentActivitiesPage" :page-count="analyticStore.totalActivitiesPages"
-                                @update:page="(page)=>analyticStore.getUserActivity(page)" :items-per-page="10">
+                                class="elevation-2 my-4 px-4"  v-model:page="analyticStore.currentActivitiesPage" :page-count="analyticStore.totalActivitiesPages"
+                                @update:page="(page)=>analyticStore.getUserActivity(page)" :items-per-page="10" :disable-pagination="false">
                     
                     <template #item.description="{ item }">
                         <span class="font-weight-medium">{{ item.description }}</span>

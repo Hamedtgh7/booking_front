@@ -4,6 +4,7 @@ import Admins from "@/components/client/Admins.vue";
 import Schedule from "@/components/client/Schedule.vue";
 import Dashboard from "@/components/dashboard/Dashboard.vue";
 import Notification from "@/components/notification/notification.vue";
+import OnlineUsers from "@/components/onlines/onlineUsers.vue";
 import Slots from "@/components/slot/slots.vue";
 import { useAuthStore } from "@/stores/auth";
 
@@ -56,6 +57,11 @@ const dashboardRoute=[
                 path:'/analytic',
                 name:'analytic',
                 component:BaseAnanlyticView
+            },
+            {
+                path:'onlines',
+                name:'onlines',
+                component:OnlineUsers
             }
         ]
     }
