@@ -49,6 +49,12 @@ export const useAuthStore=defineStore('auth',()=>{
 
     async function login(payload:LoginData){
         return await authService.login(payload).then(response=>{
+            if (response.status>=400){
+                return{
+                    errorResponse:true,
+                    message:response.response.data?.message ||'Login failed'
+                }
+            }
             loginForm.value=emptyLoginForm()
 
             token.value=response.data.data.token

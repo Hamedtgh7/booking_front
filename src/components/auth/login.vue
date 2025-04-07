@@ -23,20 +23,32 @@
   
       </v-card-text>
     </v-card>
+
+    <v-alert v-if="errorMessage" type="error" style="position: fixed; top:20px;right: 20px;z-index: 9999; max-width: 300px;" dense>
+      {{ errorMessage }}
+    </v-alert>
   </v-container>
 </template>
   
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth/index';
 import router from '@/router';
+import { ref } from 'vue';
   
 const userStore=useAuthStore()
 const{loginForm,login} =userStore
+const errorMessage=ref('')
 
 
 const handleLogin=async ()=>{
-  await login({...loginForm})
-  router.push({'name':'dashboard'})
+  const response= await login({...loginForm})
+  
+  if (response.errorResponse){
+    errorMessage.value=response.message
+  } else{
+    errorMessage.value=''
+    router.push({'name':'dashboard'})
+  }
 }
    
 </script>

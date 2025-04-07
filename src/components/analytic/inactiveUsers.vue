@@ -8,7 +8,7 @@
         <v-container>
             <v-responsive>
                 <v-data-table style="height: 100%;width: 100%;padding-bottom: 20px;" :items="analyticStore.inactiveUsers" :headers="headers" density="comfortable"
-                                class="elevation-2 my-4 px-4 text-center" :items-per-page="5">
+                                class="elevation-2 my-4 px-4 text-center" :disable-pagination="true" hide-default-footer>
                     <template #item.index="{index}">
                         <strong>{{ index+1 }}</strong>
                     </template>
@@ -25,6 +25,27 @@
                 
                 </v-data-table>
             </v-responsive>
+
+            <div class="d-flex justify-center align-center mt-6 gap-4">
+                <v-btn color="primary" variant="outlined" rounded="lg" size="small" :disabled="analyticStore.currentInactiveUsersPages===1"
+                @click="changePage(analyticStore.currentInactiveUsersPages-1)">
+
+                    <v-icon  start icon="mdi-chevron-left"/>
+                    Previous
+                </v-btn>
+                
+                <span class="mx-4" style="font-size: 0.9rem; color: #555;">
+                    Page <strong>{{ analyticStore.currentInactiveUsersPages }}</strong> of <strong>{{ analyticStore.totalInactiveUsersPages }}</strong> </span>
+
+                <v-btn color="primary" variant="outlined" rounded="lg"
+                    size="small" :disabled="analyticStore.currentInactiveUsersPages===analyticStore.totalInactiveUsersPages"
+                    @click="changePage(analyticStore.currentInactiveUsersPages+1)">
+
+                    Next
+                    <v-icon end icon="mdi-chevron-right"/>
+
+                </v-btn>
+            </div>
         </v-container>
 
     </v-card>
@@ -45,4 +66,11 @@ const headers=[
     {title:'Name',key:'name',align:'center', sortable: false},
     {title:'Last Activity',key:'lastActivity',align:'center', sortable: false},
 ]
+
+const changePage=(page:number)=>{
+    if (page >=1 && page<=analyticStore.totalInactiveUsersPages){
+        analyticStore.currentInactiveUsersPages=page
+        analyticStore.getInactiveUsers(page)
+    }
+}
 </script>
