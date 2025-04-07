@@ -20,6 +20,9 @@ onMounted(()=>{
         onlineUsers.value=onlineUsers.value.filter(u=> u.id!==user.id)
     }).listen('.online.users',(event)=>{
         onlineUsers.value.push(event.user)
+
+    }).listen('.offline.users',(event)=>{
+        onlineUsers.value=onlineUsers.value.filter(u=>u.id!==event.user.id)
     })
 })
 
