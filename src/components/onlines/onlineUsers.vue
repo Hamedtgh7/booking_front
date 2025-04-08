@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import echo from '@/echo.js'
+import { onlineUsersService } from '@/services/onlines';
 import { onMounted, onUnmounted, ref } from 'vue';
 
 interface User{
@@ -9,9 +10,12 @@ interface User{
 
 const onlineUsers=ref<User[]>([])
 
-onMounted(()=>{
+onMounted(async()=>{
+    const response=await onlineUsersService.get()
+    onlineUsers.value=response.data
+
     const channel= echo.join('online.users').here((users:User[])=>{
-        onlineUsers.value=users
+        onlineUsers.value.push(users[0])
     })
     .joining((user:User)=>{
         onlineUsers.value.push(user)
